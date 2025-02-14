@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AI Outfit Maker</title>
+    <link rel="stylesheet" href="{% static 'wardrobe/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="logo">DrobeAI</a>
+        <ul class="navbar-list">
+            <li><a href="{% url 'register' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+
+            <li class="profile-dropdown">
+                <div class="profile-button" onclick="toggleDropdown()">
+                    <img src="{% if user.profile.picture %}{{ user.profile.picture.url }}{% else %}{% static 'profile_pictures/blank-profile-picture-973460_1280.jpg' %}{% endif %}" alt="Profile Picture" class="profile-pic">
+                </div>
+                <div id="dropdownMenu" class="dropdown-content">
+                    <a href="{% url 'settings' %}">Settings</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="home-container">
+        <h1>Welcome to DrobeAI!</h1>
+        <p>Explore your wardrobe, add new items, or let the AI help you create the perfect outfit.</p>
+        
+        <div class="feature-buttons">
+            <a href="{% url 'generate_outfit' %}" class="button">Generate an Outfit</a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-button') && !event.target.matches('.profile-pic')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

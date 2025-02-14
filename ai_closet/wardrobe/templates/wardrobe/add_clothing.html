@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Clothing</title>
+    <link rel="stylesheet" href="{% static 'wardrobe/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar-list">
+            <li><a href="{% url 'wardrobe' %}">Wardrobe</a></li>
+            <li><a href="{% url 'add_clothing' %}">Add Clothing</a></li>
+            <li><a href="{% url 'generate_outfit' %}">Generate</a></li>
+            <li><a href="{% url 'login' %}">Logout</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+
+            <li class="profile-dropdown">
+                <div class="profile-button" onclick="toggleDropdown()">
+                    <img src="{{ user.profile.picture.url }}" alt="Profile" class="profile-pic"> <!-- Replace with actual profile pic URL -->
+                </div>
+                <div id="dropdownMenu" class="dropdown-content">
+                    <a href="{% url 'settings' %}">Settings</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+        </ul>
+    </nav>
+    
+        
+    <div class="container">
+        <h1>Add New Clothing Item</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-button') && !event.target.matches('.profile-pic')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

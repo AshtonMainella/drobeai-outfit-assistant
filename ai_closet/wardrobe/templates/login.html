@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="{% static 'wardrobe/style.css' %}">
+
+<h2>Login</h2>
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <br>
+    <button type="submit">Login</button>
+</form>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'register' %}">Sign Up</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+</body>
